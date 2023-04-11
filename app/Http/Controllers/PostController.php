@@ -23,6 +23,18 @@ class PostController extends Controller
         return redirect()->route('Post#index');
     }
 
+    // Post Delete => D
+    public function deletePost($id)
+    {
+        // first way
+        // Post::where('id', $id)->delete();
+
+        // second way
+        Post::find($id)->delete();
+
+        return redirect()->route('Post#index');
+    }
+
     // get data form createPost
     private function getData($request)
     {

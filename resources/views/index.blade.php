@@ -9,11 +9,11 @@
                     <div class="text-group mb-3">
                         <h2 ><i class="fa-solid fa-circle-plus text-success"></i> Create Post</h2>
                         <label for="">Title</label>
-                        <input type="text" class="form-control" name="title" placeholder="Enter Your Title...">
+                        <input type="text" class="form-control" name="title" placeholder="Enter Your Title..." required>
                     </div>
                     <div class="text-group mb-3">
                         <label for="">Description</label>
-                       <textarea name="des" class="form-control" cols="30" rows="10" placeholder="Enter Your Message..."></textarea>
+                       <textarea name="des" class="form-control" cols="30" rows="10" placeholder="Enter Your Message..." required></textarea>
                     </div>
                     <div class="text-group col-3">
                         <button type="submit" class="form-control btn btn-outline-success"><i class="fa-solid fa-circle-plus fa-bounce text-danger"></i> Create</button>
@@ -25,10 +25,10 @@
                     @foreach ($posts as $post)
                     <div class="post-container p-3 shadow-sm mb-3">
                         <h2>{{$post['title']}}</h2>
-                        <p>{{Str::words($post['Description'],35,'.....')}}</p>
+                        <p>{{Str::words($post['Description'],30,'.....')}}</p>
                         <div class="text-end">
-                            <button class="btn-sm btn btn-warning"><i class="fa-solid fa-eye"></i></button>
-                            <button class="btn-sm btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                            <a href="" class="btn-sm btn btn-warning"><i class="fa-solid fa-eye"></i></a>
+                            <a href="{{route('Post#delete',$post['id'])}}" class="btn-sm btn btn-danger" onclick="return confirm('Are You Sure?')"><i class="fa-solid fa-trash text-dark"></i></a>
                         </div> 
                     </div>   
                     @endforeach
