@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -10,5 +11,25 @@ class PostController extends Controller
     public function index()
     {
         return view('index');
+    }
+
+    // Post Create
+    public function createPost(Request $request)
+    {
+       $postData =  $this->getData($request);
+        Post::create($postData);
+
+        return redirect()->route('Post#index');
+    }
+
+    // get data form create
+    private function getData($request)
+    {
+        $data = [
+            'title' => $request->title,
+            'Description' => $request->des
+        ];
+
+        return $data;
     }
 }
