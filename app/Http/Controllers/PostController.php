@@ -10,19 +10,20 @@ class PostController extends Controller
     // Home Page
     public function index()
     {
-        return view('index');
+        $posts = Post::orderBy('created_at', 'desc')->get()->toArray(); // DB data get & show => Read =>R
+        return view('index', compact('posts'));
     }
 
-    // Post Create
+    // Post Create => C
     public function createPost(Request $request)
     {
-       $postData =  $this->getData($request);
+        $postData =  $this->getData($request);
         Post::create($postData);
 
         return redirect()->route('Post#index');
     }
 
-    // get data form create
+    // get data form createPost
     private function getData($request)
     {
         $data = [

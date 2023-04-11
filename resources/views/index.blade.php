@@ -22,16 +22,16 @@
             </div>
             <div class="col-7">
                 
-                    @for ($i = 0; $i < 5; $i++)
+                    @foreach ($posts as $post)
                     <div class="post-container p-3 shadow-sm mb-3">
-                    <h2>Title</h2>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi error aliquam tempore natus, at eveniet sunt dolorum veniam ipsam dolores corrupti ea impedit non tempora eius culpa velit voluptatem est?</p>
-                    <div class="text-end">
-                        <button class="btn-sm btn btn-warning"><i class="fa-solid fa-eye"></i></button>
-                        <button class="btn-sm btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                    </div> 
-                </div>   
-                    @endfor
+                        <h2>{{$post['title']}}</h2>
+                        <p>{{Str::words($post['Description'],35,'.....')}}</p>
+                        <div class="text-end">
+                            <button class="btn-sm btn btn-warning"><i class="fa-solid fa-eye"></i></button>
+                            <button class="btn-sm btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                        </div> 
+                    </div>   
+                    @endforeach
                 
             </div>
         </div>
