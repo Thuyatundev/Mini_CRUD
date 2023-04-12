@@ -42,6 +42,23 @@ class PostController extends Controller
         return view('see', compact('post'));
     }
 
+    // update Postpage
+    public function updatePost($id)
+    {
+        $post = Post::where('id', $id)->first()->toArray();
+        return view('update', compact("post"));
+    }
+
+    // Updated Post => Update => U
+    public function UpdatedPost(Request $request)
+    {
+        $postValue = $this->getData($request);
+        $id = $request->postId;
+        Post::where('id', $id)->update($postValue);
+
+        return redirect()->route('Post#index');
+    }
+
     // get data form createPost
     private function getData($request)
     {

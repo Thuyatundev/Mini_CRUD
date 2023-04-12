@@ -10,7 +10,7 @@
                 <p class="text-muted mt-3">{{$post['Description']}}</p>
                </div>
                 <div class="col-3 offset-9 mt-3">
-                    <button class="btn btn-dark"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                    <a href="{{route('Post#update', $post['id'])}}" class="btn btn-dark">Edit</a>
                 </div>
             </div>
           
