@@ -27,7 +27,7 @@
                         <h2>{{$post['title']}}</h2>
                         <p>{{Str::words($post['Description'],30,'.....')}}</p>
                         <div class="text-end">
-                            <a href="" class="btn-sm btn btn-warning"><i class="fa-solid fa-eye"></i></a>
+                            <a href="{{route('Post#view',$post['id'])}}" class="btn-sm btn btn-warning"><i class="fa-solid fa-eye"></i></a>
                             <a href="{{route('Post#delete',$post['id'])}}" class="btn-sm btn btn-danger" onclick="return confirm('Are You Sure?')"><i class="fa-solid fa-trash text-dark"></i></a>
                         </div> 
                     </div>   

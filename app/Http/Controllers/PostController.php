@@ -35,6 +35,13 @@ class PostController extends Controller
         return redirect()->route('Post#index');
     }
 
+    // view Post => Read => R
+    public function viewPost($id)
+    {
+        $post = Post::where('id', $id)->first()->toArray();
+        return view('see', compact('post'));
+    }
+
     // get data form createPost
     private function getData($request)
     {
