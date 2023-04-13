@@ -5,7 +5,7 @@
            
             <div class="row">
                 <div class="col-8 offset-2">
-                <a href="" class="text-decoration-none text-dark" ><i class="fa-solid fa-left-long"></i></i> Back</a>
+                <a href="{{route('Post#view',$post['id'])}}" class="text-decoration-none text-dark" ><i class="fa-solid fa-left-long"></i></i> Back</a>
                 <form action="{{route('Updated#post')}}" method="post">
                     @csrf
                     <label>Title</label>

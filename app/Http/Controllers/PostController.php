@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -17,10 +18,19 @@ class PostController extends Controller
     // Post Create => C
     public function createPost(Request $request)
     {
+        // validate check method
+        $validateData = [
+            'title' => 'required',
+            'des' => 'required'
+        ];
+        
+        Validator::make($request->all(), $validateData)->validate();
+
+        // create function 
         $postData =  $this->getData($request);
         Post::create($postData);
 
-        return redirect()->route('Post#index')->with(['createdData'=>'Post Created successfully...']);
+        return redirect()->route('Post#index')->with(['createdData' => 'Post Created successfully...']);
     }
 
     // Post Delete => D
@@ -56,7 +66,7 @@ class PostController extends Controller
         $id = $request->postId;
         Post::where('id', $id)->update($postValue);
 
-        return redirect()->route('Post#index')->with(['updatedData'=>'Post Updated successfully...']);
+        return redirect()->route('Post#index')->with(['updatedData' => 'Post Updated successfully...']);
     }
 
     // get data form createPost

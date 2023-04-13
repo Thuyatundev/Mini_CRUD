@@ -12,27 +12,34 @@
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <strong>{{session('createdData')}}</strong>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                          </div>   
+                        </div>   
                         @endif
+
                         {{--Updated alert  --}}
                         @if (session('updatedData'))
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             <strong>{{session('updatedData')}}</strong>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                          </div>   
+                        </div>   
                         @endif
                         <h2><i class="fa-solid fa-circle-plus text-success"></i> Create Post</h2>
                         <label for="">Title</label>
-                        <input type="text" class="form-control" name="title" placeholder="Enter Your Title..." required>
+                        <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Enter Your Title..." value="{{old('title')}}">
+                        @error('title')
+                            <small class="text-danger">Post title field is required</small>
+                        @enderror
                     </div>
-                    <div class="text-group mb-3">
+                        <div class="text-group mb-3">
                         <label for="">Description</label>
-                       <textarea name="des" class="form-control" cols="30" rows="10" placeholder="Enter Your Message..." required></textarea>
-                    </div>
-                    <div class="text-group col-3">
+                       <textarea name="des" class="form-control @error('des') is-invalid @enderror" cols="30" rows="10" placeholder="Enter Your Message..." >{{old('des')}}</textarea>
+                       @error('des')
+                            <small class="text-danger">Post description field is required</small>
+                        @enderror
+                        </div>
+                        <div class="text-group col-3">
                         <button type="submit" class="form-control btn btn-outline-success"><i class="fa-solid fa-circle-plus fa-bounce text-danger"></i> Create</button>
-                    </div>
-                </form>
+                        </div>
+                    </form>
             </div>
             <div class="col-7">
                 {{--deleted alert  --}}
