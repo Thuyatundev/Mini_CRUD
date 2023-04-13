@@ -10,7 +10,7 @@ class PostController extends Controller
     // Home Page
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->get()->toArray(); // DB data get & show => Read =>R
+        $posts = Post::orderBy('created_at', 'desc')->paginate(3); // DB data get & show => Read =>R
         return view('index', compact('posts'));
     }
 
@@ -20,7 +20,7 @@ class PostController extends Controller
         $postData =  $this->getData($request);
         Post::create($postData);
 
-        return redirect()->route('Post#index');
+        return redirect()->route('Post#index')->with(['createdData'=>'Post Created successfully...']);
     }
 
     // Post Delete => D
@@ -32,7 +32,7 @@ class PostController extends Controller
         // second way
         Post::find($id)->delete();
 
-        return redirect()->route('Post#index');
+        return redirect()->route('Post#index')->with(['DeletePost' => 'Post Deleted Successfully...']);
     }
 
     // view Post => Read => R
@@ -56,7 +56,7 @@ class PostController extends Controller
         $id = $request->postId;
         Post::where('id', $id)->update($postValue);
 
-        return redirect()->route('Post#index');
+        return redirect()->route('Post#index')->with(['updatedData'=>'Post Updated successfully...']);
     }
 
     // get data form createPost
