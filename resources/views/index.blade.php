@@ -26,14 +26,14 @@
                         <label for="">Title</label>
                         <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Enter Your Title..." value="{{old('title')}}">
                         @error('title')
-                            <small class="text-danger">Post title field is required</small>
+                            <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
                         <div class="text-group mb-3">
                         <label for="">Description</label>
                        <textarea name="des" class="form-control @error('des') is-invalid @enderror" cols="30" rows="10" placeholder="Enter Your Message..." >{{old('des')}}</textarea>
                        @error('des')
-                            <small class="text-danger">Post description field is required</small>
+                            <small class="text-danger">{{$message}}</small>
                         @enderror
                         </div>
                         <div class="text-group col-3">

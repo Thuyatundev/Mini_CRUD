@@ -18,14 +18,8 @@ class PostController extends Controller
     // Post Create => C
     public function createPost(Request $request)
     {
-        // validate check method
-        $validateData = [
-            'title' => 'required',
-            'des' => 'required'
-        ];
         
-        Validator::make($request->all(), $validateData)->validate();
-
+        $this->validatorMethod($request);
         // create function 
         $postData =  $this->getData($request);
         Post::create($postData);
@@ -62,6 +56,7 @@ class PostController extends Controller
     // Updated Post => Update => U
     public function UpdatedPost(Request $request)
     {
+        $this->validatorMethod($request);
         $postValue = $this->getData($request);
         $id = $request->postId;
         Post::where('id', $id)->update($postValue);
@@ -78,5 +73,26 @@ class PostController extends Controller
         ];
 
         return $data;
+    }
+
+    // validate method
+    private function validatorMethod($request)
+    {
+        // validate check method
+        $validateData = [
+            'title' => 'required|unique:posts,title|min:5',
+            'des' => 'required|min:10'
+        ];
+        
+        // validate error custom message
+        $validateMessage = [
+            'title.required'=>'Please fill title...',
+            'title.unique'=>"Please change title",
+            'title.min'=>"Plase fill at least 5",
+            'des.required'=>'Please fill description...',
+            'des.min'=>'Plase fill at least 10',
+        ];
+
+        Validator::make($request->all(), $validateData,$validateMessage)->validate();
     }
 }
