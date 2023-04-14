@@ -18,7 +18,7 @@ class PostController extends Controller
     // Post Create => C
     public function createPost(Request $request)
     {
-        
+
         $this->validatorMethod($request);
         // create function 
         $postData =  $this->getData($request);
@@ -69,7 +69,10 @@ class PostController extends Controller
     {
         $data = [
             'title' => $request->title,
-            'Description' => $request->des
+            'Description' => $request->des,
+            'price' => $request->price,
+            'location' => $request->location,
+            'rating' => $request->rating
         ];
 
         return $data;
@@ -80,19 +83,22 @@ class PostController extends Controller
     {
         // validate check method
         $validateData = [
-            'title' => 'required|unique:posts,title|min:5',
-            'des' => 'required|min:10'
-        ];
-        
-        // validate error custom message
-        $validateMessage = [
-            'title.required'=>'Please fill title...',
-            'title.unique'=>"Please change title",
-            'title.min'=>"Plase fill at least 5",
-            'des.required'=>'Please fill description...',
-            'des.min'=>'Plase fill at least 10',
+            'title' => 'required|min:5|unique:posts,title,'. $request->postId,
+            'des' => 'required|min:10',
+            'price' => 'required',
+            'location' => 'required',
+            'rating' => 'required'
         ];
 
-        Validator::make($request->all(), $validateData,$validateMessage)->validate();
+        // validate error custom message
+        $validateMessage = [
+            'title.required' => 'Please fill title...',
+            'title.unique' => "Please change title",
+            'title.min' => "Plase fill at least 5",
+            'des.required' => 'Please fill description...',
+            'des.min' => 'Plase fill at least 10',
+        ];
+
+        Validator::make($request->all(), $validateData, $validateMessage)->validate();
     }
 }

@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->longText('Description');
+            $table->integer('price');
+            $table->string('location');
+            $table->double('rating');
             $table->timestamps();
         });
     }
