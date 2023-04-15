@@ -11,7 +11,11 @@ class PostController extends Controller
     // Home Page
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(3); // DB data get & show => Read =>R
+        $posts = Post::when(request('searchKey'), function ($query) {
+            $key = request('searchKey');
+            $query->orWhere('title', 'like', '%' . $key . '%')
+                  ->orWhere('Description', 'like', '%'. $key. '%');
+        })->orderBy('created_at', 'desc')->paginate(3); // DB data get & show => Read =>R
         return view('index', compact('posts'));
     }
 
@@ -83,7 +87,7 @@ class PostController extends Controller
     {
         // validate check method
         $validateData = [
-            'title' => 'required|min:5|unique:posts,title,'. $request->postId,
+            'title' => 'required|min:5|unique:posts,title,' . $request->postId,
             'des' => 'required|min:10',
             'price' => 'required',
             'location' => 'required',

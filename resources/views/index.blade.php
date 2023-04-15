@@ -70,7 +70,24 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>   
                 @endif
-                <h2>Total - {{$posts->total()}}</h2>
+                
+                    <div class="row">
+                        <div class="col-5">
+                            <h2>Total - {{$posts->total()}}</h2>
+                        </div>
+                        <div class="col-5 offset-2 mb-4">
+                       <form action="{{route('Post#index')}}" method="get">
+                        @csrf
+                            <div class="row">
+                                <div class="d-flex">
+                                    <input type="text" class="form-control" name="searchKey" placeholder="Enter Your Search Key..." value="{{request('searchKey')}}">
+                                    <button type="submit" class="btn btn-danger"><i class="fa-solid fa-magnifying-glass"></i></button>
+                                   </div>
+                            </div>
+                       </form>
+                    </div>
+                    </div>
+                    
                     @foreach ($posts as $post)
                     <div class="post-container p-3 shadow-sm mb-3">
                         <div class="row">
@@ -94,7 +111,7 @@
                     </div> 
                    
                 @endforeach
-                {{$posts->links()}}  
+                {{$posts->appends(request()->query())->links()}}  
             </div>
             
         </div>
