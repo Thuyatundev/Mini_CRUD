@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row mt-5">
             <div class="col-5 p-3">
-                <form action="{{route('Post#create')}}" method="post">
+                <form action="{{route('Post#create')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="text-group mb-3">
                         {{-- created alert --}}
@@ -35,6 +35,13 @@
                        @error('des')
                             <small class="text-danger">{{$message}}</small>
                         @enderror
+                        </div>
+                        <div class="text-group mb-3">
+                            <label for="">Image</label>
+                           <input type="file" class="form-control" name="image" value="{{old('image')}}" placeholder="Enter Your Price...">
+                           @error('image')
+                                <small class="text-danger">{{$message}}</small>
+                            @enderror
                         </div>
                         <div class="text-group mb-3">
                             <label for="">Price</label>

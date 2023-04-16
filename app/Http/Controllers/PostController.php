@@ -14,7 +14,7 @@ class PostController extends Controller
         $posts = Post::when(request('searchKey'), function ($query) {
             $key = request('searchKey');
             $query->orWhere('title', 'like', '%' . $key . '%')
-                  ->orWhere('Description', 'like', '%'. $key. '%');
+                ->orWhere('Description', 'like', '%' . $key . '%');
         })->orderBy('created_at', 'desc')->paginate(3); // DB data get & show => Read =>R
         return view('index', compact('posts'));
     }
@@ -26,6 +26,14 @@ class PostController extends Controller
         $this->validatorMethod($request);
         // create function 
         $postData =  $this->getData($request);
+
+        // get image data 
+        if ($request->hasFile('image')) {
+            $fileName = uniqid() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('myImage', $fileName);
+            $postData['image'] = $fileName;
+        }
+
         Post::create($postData);
 
         return redirect()->route('Post#index')->with(['createdData' => 'Post Created successfully...']);
@@ -76,7 +84,8 @@ class PostController extends Controller
             'Description' => $request->des,
             'price' => $request->price,
             'location' => $request->location,
-            'rating' => $request->rating
+            'rating' => $request->rating,
+            'image' => $request->image
         ];
 
         return $data;
@@ -89,6 +98,7 @@ class PostController extends Controller
         $validateData = [
             'title' => 'required|min:5|unique:posts,title,' . $request->postId,
             'des' => 'required|min:10',
+            'image' => 'mimes:jpg,png,webp,jpeg|file',
             'price' => 'required',
             'location' => 'required',
             'rating' => 'required'
