@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-8 offset-2">
                 <a href="{{route('Post#view',$post['id'])}}" class="text-decoration-none text-dark" ><i class="fa-solid fa-left-long"></i></i> Back</a>
-                <form action="{{route('Updated#post')}}" method="post">
+                <form action="{{route('Updated#post')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <label>Title</label>
                     <input type="hidden" name="postId" value="{{$post['id']}}">
@@ -18,6 +18,13 @@
                     <label>Description</label>
                     <textarea name="des" class="form-control my-2 @error('des') is-invalid @enderror" cols="30" rows="10"  placeholder="Enter Your Message...">{{old('des',$post['Description'])}}</textarea>
                     @error('des')
+                         <div class="text-danger">{{$message}}</div>   
+                    @enderror
+
+                    <label>Image</label>
+                    
+                    <input type="file" class="form-control my-2 @error('image') is-invalid @enderror" name="image" value="{{old('image',$post['image'])}}"  placeholder="Enter Your Title...">
+                    @error('image')
                          <div class="text-danger">{{$message}}</div>   
                     @enderror
 

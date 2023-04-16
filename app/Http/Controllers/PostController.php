@@ -70,6 +70,14 @@ class PostController extends Controller
     {
         $this->validatorMethod($request);
         $postValue = $this->getData($request);
+
+        // update image
+        if ($request->hasFile('image')) {
+            $fileName = uniqid() . "__" . $request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('myImage', $fileName);
+            $postValue['image'] = $fileName;
+        }
+
         $id = $request->postId;
         Post::where('id', $id)->update($postValue);
 
